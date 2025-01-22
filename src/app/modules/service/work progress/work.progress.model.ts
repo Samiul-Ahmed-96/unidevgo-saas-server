@@ -19,6 +19,25 @@ const WorkProgressSchema = new Schema<TWorkProgress>(
   { timestamps: true }
 );
 
+// query middlewares
+WorkProgressSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+// query middlewares
+
+WorkProgressSchema.pre("findOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+// Work on aggregate
+WorkProgressSchema.pre("aggregate", function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
 export const WorkProgressModel = model<TWorkProgress>(
   "Work Progress",
   WorkProgressSchema

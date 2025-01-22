@@ -10,6 +10,8 @@ const startTracker = async (
   try {
     const { employeeId, companyId } = req.body;
 
+    console.log(req.body);
+
     // Validate input
     if (!employeeId || !companyId) {
       return res.status(400).json({
@@ -38,7 +40,7 @@ const stopTracker = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { employeeId } = req.body;
 
-    console.log(employeeId);
+    console.log(req.body);
 
     // Validate input
     if (!employeeId) {
